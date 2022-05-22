@@ -9,18 +9,13 @@
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     @livewireStyles
-    <script src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
     @stack('extra_head')
 </head>
 
 <body>
-    <div class="hidden border-b border-sky-600 bg-sky-100 py-3 text-sky-900" x-data="alertState"
-        x-bind:class="{ 'hidden': !show }">
-        <div class="container" x-text="message"></div>
-    </div>
-
     <main class="container py-8">@yield('content')</main>
 
+    @include('layouts.partials.notifications')
     <svg style="display: none" version="2.0">
         <defs>
             @stack('svg_icons')

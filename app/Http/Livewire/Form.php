@@ -20,19 +20,17 @@ class Form extends Component
 
     public function store()
     {
-        $this->validate();
+        $data = $this->validate();
 
-        $todo = TodoModel::create([
-            'text' => $this->text,
-        ]);
+        $todo = TodoModel::create($data);
 
         $this->emit('todoAdded', $todo->id);
         $this->text = '';
     }
 
-    public function updatedText()
+    public function updated($field)
     {
-        $this->validate();
+        $this->validateOnly($field);
     }
 
     public function render()

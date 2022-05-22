@@ -23,4 +23,8 @@
             @endforeach
         </tbody>
     </table>
+
+    @if (count($todos) === 0)
+        <div class="my-6 px-2 text-center text-lg text-gray-600">Nenhum item encontrado.</div>
+    @endif
 </div>

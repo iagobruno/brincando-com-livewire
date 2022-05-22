@@ -3,21 +3,30 @@
         class="flex flex-col justify-start gap-3"
         wire:submit.prevent="store">
         <div class="">
-            <input
+            <x-input
                 type="text"
-                class="@error('text') border-red-600 focus:border-red-600 focus:ring-red-600 @enderror block w-full rounded focus:ring-2 focus:ring-offset-2"
+                :value="old('text')"
+                class="px-4 py-3"
                 wire:model.debounce.500ms="text"
-                x-effect="show && $el.focus()">
-            <div class="text-gray-600" wire:loading wire:target="text">Validando...</div>
-            <div class="text-gray-600" wire:loading wire:target="store">Enviando...</div>
-            @error('text')
-                <div class="text-red-600" wire:loading.remove>{{ $message }}</div>
-            @enderror
+                :invalid="$errors->has('text')"
+                x-effect="show && $el.focus()"
+                autocomplete="off"
+                placeholder="Digite aqui..." />
+            <div class="mt-1 text-sm text-red-600">
+                @error('text')
+                    {{ $message }}
+                @else
+                    <span class="invisible">l</span>
+                @enderror
+            </div>
         </div>
         <button type="submit"
             class="button button-green ml-auto w-fit"
-            @error('text') disabled @enderror
+            @disabled($errors->isNotEmpty())
             wire:loading.attr="disabled"
-            wire:target="store">Criar</button>
+            wire:target="store">
+            <span wire:loading.remove wire:target="store">Criar</span>
+            <span wire:loading wire:target="store">Criando...</span>
+        </button>
     </form>
 </div>

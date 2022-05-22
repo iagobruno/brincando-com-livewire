@@ -11,8 +11,9 @@
             <x-slot:trigger>
                 <x-button class="button-blue">Criar novo item</x-button>
             </x-slot:trigger>
-            <x-slot:body>
-                <h3 class="mb-3 text-2xl font-medium">Criar novo item</h3>
+            <x-slot:body class="!w-[400px]">
+                <h3 class="text-2xl font-medium">Criar novo item</h3>
+                <p class="mb-3 text-gray-500">Digite no campo baixo</p>
                 <livewire:form />
             </x-slot:body>
         </x-dialog>

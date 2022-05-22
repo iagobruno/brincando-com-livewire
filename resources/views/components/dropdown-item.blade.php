@@ -1,9 +1,10 @@
-<div
+<button
+    x-bind="menuItem"
     {{ $attributes->merge([
-        'tabindex' => 0,
-        'role' => 'button',
+        'type' => 'button',
         'class' =>
-            'min-w-[140px] cursor-pointer whitespace-nowrap bg-transparent px-2 py-1 !outline-none hover:bg-gray-100 focus:ring-2 focus:ring-blue-400',
-    ]) }}>
+            'cursor-pointer bg-transparent w-full px-3 py-1.5 !outline-none text-left whitespace-nowrap hover:bg-gray-200/70 focus:ring-2 focus:ring-blue-400',
+    ]) }}
+    role="menuitem">
     {{ $slot }}
-</div>
+</button>

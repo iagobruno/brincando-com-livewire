@@ -7,7 +7,7 @@
 }
 
 .button {
-    @apply relative z-10 cursor-pointer overflow-hidden rounded bg-transparent py-1.5 px-3 text-sm font-medium uppercase leading-5 text-gray-900 no-underline !outline-none transition duration-[140ms] ease-in ring-0 ring-offset-0 hover:shadow-md active:!ring-offset-0 active:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-0 disabled:pointer-events-none disabled:!text-gray-500/80 disabled:border-gray-400 disabled:bg-gray-400/70 disabled:shadow-none;
+    @apply relative z-10 cursor-pointer overflow-hidden rounded bg-transparent py-1.5 px-3 text-sm font-medium uppercase leading-5 text-gray-900 no-underline !outline-none transition duration-[140ms] ease-in ring-0 ring-offset-0 hover:shadow-md active:!ring-offset-0 active:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-0 disabled:pointer-events-none disabled:!text-gray-500/70 disabled:border-gray-400/60 disabled:bg-gray-400/50 disabled:shadow-none;
 }
 
 .button-outlined {
