@@ -9,7 +9,7 @@
         <h1 class="text-4xl font-bold">Afazeres</h1>
         <x-dialog>
             <x-slot:trigger>
-                <x-button class="button button-blue">Criar novo item</x-button>
+                <x-button class="button-blue">Criar novo item</x-button>
             </x-slot:trigger>
             <x-slot:body>
                 <h3 class="mb-3 text-2xl font-medium">Criar novo item</h3>
