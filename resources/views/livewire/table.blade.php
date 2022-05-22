@@ -9,7 +9,7 @@
                 <th class="p-2 pr-3 text-left">
                     <button
                         class="whitespace-nowrap rounded border border-red-600 px-1 py-0 text-sm font-medium text-red-600 !outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 disabled:pointer-events-none disabled:border-gray-500 disabled:text-gray-500"
-                        x-on:click="removeAllSelectedRows" x-bind:disabled="!hasAtLeastOneRowSelected">Delete
+                        x-on:click="removeAllSelectedRows" x-bind:disabled="!hasAtLeastOneRowSelected" disabled>Delete
                         selected</button>
                 </th>
             </tr>

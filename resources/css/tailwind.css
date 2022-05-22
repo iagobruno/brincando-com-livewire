@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+.container {
+    @apply m-auto max-w-4xl px-4;
+}
+
+.button {
+    @apply relative z-10 cursor-pointer overflow-hidden rounded bg-transparent py-1.5 px-3 text-sm font-medium uppercase leading-5 text-gray-900 no-underline !outline-none transition-colors duration-200 ease-in focus:ring-2 focus:ring-sky-500 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-400/70 disabled:shadow-none;
+}
+
+.button-outlined {
+    @apply !bg-transparent text-gray-900 border-2 border-gray-900 !shadow-none focus:ring-offset-2;
+}
+
+.button-blue {
+    @apply text-white border-blue-500 bg-blue-500 shadow hover:bg-sky-500 focus:ring-sky-500 focus:ring-offset-2;
+
+    &.button-outlined {
+        @apply text-blue-600;
+    }
+}
+
+.button-green {
+    @apply text-white border-emerald-500 bg-emerald-500 shadow hover:bg-emerald-400 focus:ring-emerald-400 focus:ring-offset-2;
+
+    &.button-outlined {
+        @apply text-emerald-600;
+    }
+}
+
+.button-red {
+    @apply text-white border-rose-500 bg-rose-600 shadow hover:bg-rose-500 focus:ring-rose-400 focus:ring-offset-2;
+
+    &.button-outlined {
+        @apply text-rose-600;
+    }
+}
+
+.button-yellow {
+    @apply text-white border-amber-500 bg-amber-500 shadow hover:bg-amber-400 focus:ring-amber-400 focus:ring-offset-2;
+
+    &.button-outlined {
+        @apply text-amber-500;
+    }
+}
+
 table tr > td > * {
     @apply align-middle;
 }

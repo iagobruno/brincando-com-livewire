@@ -69,4 +69,49 @@ document.addEventListener("alpine:init", () => {
             this.hasAtLeastOneRowSelected = false;
         },
     }));
+
+    Alpine.data("alertState", () => ({
+        show: false,
+        message: "",
+
+        showTemporarily(message) {
+            this.message = message;
+            this.show = true;
+            setTimeout(() => {
+                this.show = false;
+                this.message = "";
+            }, 5000);
+        },
+
+        init() {
+            Livewire.on("todosRemoved", (ids) => {
+                const plural = ids.length > 1 ? "s" : "";
+                this.showTemporarily(`✅ Todo${plural} removido${plural}!`);
+            });
+            Livewire.on("todoAdded", () =>
+                this.showTemporarily("✅ Todo adicionado!")
+            );
+        },
+    }));
+
+    Alpine.data("dialogState", () => ({
+        show: false,
+        lastFocusedElemBeforeOpen: null,
+        rootEl: null,
+
+        openDialog() {
+            this.lastFocusedElemBeforeOpen = document.activeElement;
+            this.show = true;
+        },
+        closeDialog() {
+            this.show = false;
+            this.lastFocusedElemBeforeOpen?.focus();
+            this.lastFocusedElemBeforeOpen = null;
+        },
+
+        init() {
+            this.rootEl = this.$el;
+            Livewire.on("todoAdded", () => this.closeDialog());
+        },
+    }));
 });

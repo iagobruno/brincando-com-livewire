@@ -11,6 +11,7 @@ class Table extends Component
 
     protected $listeners = [
         'removeTodos',
+        'todoAdded',
     ];
 
     public function removeTodos($ids)
@@ -18,6 +19,11 @@ class Table extends Component
         Todo::whereIn('id', $ids)->delete();
         $this->fetchTodos();
         $this->emit('todosRemoved', $ids);
+    }
+
+    public function todoAdded()
+    {
+        $this->fetchTodos();
     }
 
     public function mount()

@@ -7,10 +7,15 @@ use App\Models\Todo as TodoModel;
 
 class Form extends Component
 {
-    public $newTodo = '';
+    public $text = '';
 
     protected $rules = [
-        'newTodo' => ['required', 'string', 'max:255', 'unique:todos,text'],
+        'text' => ['required', 'string', 'max:255', 'unique:todos,text'],
+    ];
+    protected $messages = [
+        'required' => 'Este campo é obrigatório.',
+        'max' => 'Digite no máximo 255 caracteres.',
+        'unique' => 'Este item já existe.',
     ];
 
     public function store()
@@ -18,16 +23,14 @@ class Form extends Component
         $this->validate();
 
         $todo = TodoModel::create([
-            'text' => $this->newTodo,
+            'text' => $this->text,
         ]);
 
         $this->emit('todoAdded', $todo->id);
-        $this->newTodo = '';
-
-        session()->flash('message', '✅ Todo adicionado!');
+        $this->text = '';
     }
 
-    public function updatedNewTodo()
+    public function updatedText()
     {
         $this->validate();
     }

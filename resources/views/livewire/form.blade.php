@@ -1,17 +1,23 @@
 <div>
-    <form wire:submit.prevent="store">
-        <input type="text" wire:model.debounce.500ms="newTodo">
+    <form
+        class="flex flex-col justify-start gap-3"
+        wire:submit.prevent="store">
+        <div class="">
+            <input
+                type="text"
+                class="@error('text') border-red-600 focus:border-red-600 focus:ring-red-600 @enderror block w-full rounded focus:ring-2 focus:ring-offset-2"
+                wire:model.debounce.500ms="text"
+                x-effect="show && $el.focus()">
+            <div class="text-gray-600" wire:loading wire:target="text">Validando...</div>
+            <div class="text-gray-600" wire:loading wire:target="store">Enviando...</div>
+            @error('text')
+                <div class="text-red-600" wire:loading.remove>{{ $message }}</div>
+            @enderror
+        </div>
         <button type="submit"
-            @error('newTodo') disabled @enderror
+            class="button button-green ml-auto w-fit"
+            @error('text') disabled @enderror
             wire:loading.attr="disabled"
             wire:target="store">Criar</button>
     </form>
-    <div wire:loading wire:target="newTodo">Validando...</div>
-    <div wire:loading wire:target="store">Enviando...</div>
-    @error('newTodo')
-        <div style="color:red" wire:loading.remove>{{ $message }}</div>
-    @enderror
-    @if (session('message'))
-        <div>{{ session('message') }}</div>
-    @endif
 </div>
