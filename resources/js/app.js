@@ -51,7 +51,7 @@ Alpine.data("tableState", (tableElement) => ({
 
     removeOneRow(el) {
         el.classList.add("opacity-60", "pointer-events-none", "line-through");
-        Livewire.emit("removeTodos", [el.id]);
+        Livewire.emit("removeProducts", [el.id]);
     },
     removeAllSelectedRows() {
         const rows = Array.from(tableElement.querySelectorAll("tbody tr"));
@@ -59,7 +59,7 @@ Alpine.data("tableState", (tableElement) => ({
             (row) => row.querySelector("input[type=checkbox]").checked
         );
         const selectedids = selectedRows.map((el) => el.id);
-        Livewire.emit("removeTodos", selectedids);
+        Livewire.emit("removeProducts", selectedids);
 
         this.areAllRowsSelected = false;
         this.hasAtLeastOneRowSelected = false;
@@ -73,7 +73,7 @@ Alpine.data("dialog", () => ({
     show: false,
 
     init() {
-        Livewire.on("todoAdded", () => {
+        Livewire.on("productAdded", () => {
             this.closeDialog();
         });
     },
@@ -203,16 +203,16 @@ Alpine.data("notificationState", () => ({
 Alpine.start();
 window.Alpine = Alpine;
 
-Livewire.on("todosRemoved", (ids) => {
+Livewire.on("productsRemoved", (ids) => {
     const plural = ids.length > 1 ? "s" : "";
     Alpine.store("notifications").showNotification({
-        text: `Todo${plural} removido${plural}!`,
+        text: `Produto${plural} deletado${plural}!`,
         type: "success",
     });
 });
-Livewire.on("todoAdded", () =>
+Livewire.on("productAdded", () =>
     Alpine.store("notifications").showNotification({
-        text: "Todo adicionado!",
+        text: "Produto adicionado!",
         type: "success",
     })
 );

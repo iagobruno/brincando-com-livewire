@@ -3,29 +3,48 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Todo as TodoModel;
+use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
-    public $text = '';
+    use WithFileUploads;
+
+    public $name = '';
+    public $price = '';
+    public $thumbnail = null;
 
     protected $rules = [
-        'text' => ['required', 'string', 'max:255', 'unique:todos,text'],
+        'name' => ['required', 'string', 'max:255', 'unique:products,name'],
+        'price' => ['required', 'numeric', 'integer', 'min:0'],
+        'thumbnail' => ['sometimes', 'image', 'max:1024'],
     ];
     protected $messages = [
         'required' => 'Este campo é obrigatório.',
-        'max' => 'Digite no máximo 255 caracteres.',
-        'unique' => 'Este item já existe.',
+        'name.max' => 'Digite no máximo 255 caracteres.',
+        'name.unique' => 'Este produto já foi criado.',
+        'price.numeric' => 'Digite apenas números.',
+        'price.integer' => 'Digite um número inteiro sem casas decimais.',
+        'price.min' => 'Digite um preço maior que 0.',
+        'thumbnail.image' => 'O arquivo precisa ser uma imagem.',
+        'thumbnail.max' => 'Arquivo muito grande.',
     ];
 
     public function store()
     {
         $data = $this->validate();
 
-        $todo = TodoModel::create($data);
+        // Run php artisan storage:link
+        $filepath = Storage::url(
+            $this->thumbnail->store('public/images')
+        );
+        $data['thumbnail'] = url($filepath);
 
-        $this->emit('todoAdded', $todo->id);
-        $this->text = '';
+        $product = Product::create($data);
+
+        $this->emit('productAdded', $product->id);
+        $this->reset(['name', 'price', 'thumbnail']);
     }
 
     public function updated($field)

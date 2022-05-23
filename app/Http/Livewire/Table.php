@@ -2,38 +2,38 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Todo;
+use App\Models\Product;
 use Livewire\Component;
 
 class Table extends Component
 {
-    public $todos = [];
+    public $products = [];
 
     protected $listeners = [
-        'removeTodos',
-        'todoAdded',
+        'removeProducts',
+        'productAdded',
     ];
 
-    public function removeTodos($ids)
+    public function removeProducts($ids)
     {
-        Todo::whereIn('id', $ids)->delete();
-        $this->fetchTodos();
-        $this->emit('todosRemoved', $ids);
+        Product::whereIn('id', $ids)->delete();
+        $this->fetchProducts();
+        $this->emit('productsRemoved', $ids);
     }
 
-    public function todoAdded()
+    public function productAdded()
     {
-        $this->fetchTodos();
+        $this->fetchProducts();
     }
 
     public function mount()
     {
-        $this->fetchTodos();
+        $this->fetchProducts();
     }
 
-    public function fetchTodos()
+    public function fetchProducts()
     {
-        $this->todos = Todo::oldest()->get();
+        $this->products = Product::latest()->get();
     }
 
     public function render()
