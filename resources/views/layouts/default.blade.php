@@ -15,6 +15,7 @@
 <body>
     <main class="container py-8">@yield('content')</main>
 
+    <div class="modals"></div>
     @include('layouts.partials.notifications')
     <svg style="display: none" version="2.0">
         <defs>

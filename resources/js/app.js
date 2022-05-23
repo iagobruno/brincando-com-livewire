@@ -1,17 +1,17 @@
 import Alpine from "alpinejs";
 import focusPlugin from "@alpinejs/focus";
+import swipePlugin from "alpinejs-swipe";
 
 Alpine.plugin(focusPlugin);
+Alpine.plugin(swipePlugin);
 
-Alpine.data("tableState", () => ({
+/**
+ * @example
+ * <table x-data="tableState($el)">...</table>
+ */
+Alpine.data("tableState", (tableElement) => ({
     areAllRowsSelected: false,
     hasAtLeastOneRowSelected: false,
-
-    tableEl: null,
-
-    init() {
-        this.tableEl = this.$el;
-    },
 
     /**
      * @example
@@ -22,7 +22,7 @@ Alpine.data("tableState", () => ({
             this.areAllRowsSelected = evt.currentTarget.checked;
             this.hasAtLeastOneRowSelected = evt.currentTarget.checked;
 
-            this.tableEl
+            tableElement
                 .querySelectorAll("tbody tr input[type=checkbox]")
                 .forEach((elem) => {
                     elem.checked = evt.currentTarget.checked;
@@ -41,7 +41,7 @@ Alpine.data("tableState", () => ({
     checkRow: {
         "x-on:click": function (evt) {
             const checkboxes = Array.from(
-                this.tableEl.querySelectorAll("tbody tr input[type=checkbox]")
+                tableElement.querySelectorAll("tbody tr input[type=checkbox]")
             );
             const checkedCount = checkboxes.filter((el) => el.checked).length;
             this.hasAtLeastOneRowSelected = checkedCount >= 1;
@@ -54,7 +54,7 @@ Alpine.data("tableState", () => ({
         Livewire.emit("removeTodos", [el.id]);
     },
     removeAllSelectedRows() {
-        const rows = Array.from(this.tableEl.querySelectorAll("tbody tr"));
+        const rows = Array.from(tableElement.querySelectorAll("tbody tr"));
         const selectedRows = rows.filter(
             (row) => row.querySelector("input[type=checkbox]").checked
         );
@@ -66,6 +66,9 @@ Alpine.data("tableState", () => ({
     },
 }));
 
+/**
+ * Estado reutilizável para dialogs totalmente acessíveis.
+ */
 Alpine.data("dialog", () => ({
     show: false,
 
@@ -81,6 +84,11 @@ Alpine.data("dialog", () => ({
     closeDialog() {
         this.show = false;
     },
+    closeFromSwipeGesture() {
+        if (this.$refs.dialogEl.scrollTop === 0) {
+            this.closeDialog();
+        }
+    },
 
     /**
      * @example
@@ -94,16 +102,20 @@ Alpine.data("dialog", () => ({
      * <div x-bind="backdrop" class="backdrop">...</div>
      */
     backdrop: {
-        "x-on:click": "closeDialog",
+        "x-on:mousedown": "closeDialog",
+        "x-on:touchstart": "closeDialog",
     },
     /**
      * @example
      * <div x-bind="dialogEl" role="dialog">...</div>
      */
     dialogEl: {
+        "x-ref": "dialogEl",
         "x-trap.noscroll.inert": "show",
         "x-on:click.stop": "",
         "x-on:keydown.escape.prevent.stop": "closeDialog",
+        // NEEDS -> https://www.npmjs.com/package/alpinejs-swipe
+        "x-swipe:down.threshold.50px": "closeFromSwipeGesture",
         tabindex: "-1",
     },
 }));

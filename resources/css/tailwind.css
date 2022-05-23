@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
 .container {
     @apply m-auto max-w-4xl px-4;
 }
