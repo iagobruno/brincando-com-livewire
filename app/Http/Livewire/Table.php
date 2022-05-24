@@ -18,6 +18,9 @@ class Table extends Component
     {
         Product::whereIn('id', $ids)->delete();
         $this->fetchProducts();
+
+        $plural = count($ids) > 1 ? 's' : '';
+        $this->emit('notify', "Produto$plural removido$plural do catálogo!", 'success');
         $this->emit('productsRemoved', $ids);
     }
 

@@ -19,8 +19,8 @@
         </x-dialog>
     </div>
 
-    <div class="flex items-center justify-between gap-3">
-        <x-input type="search" class="my-4 w-full px-3 py-1" placeholder="🔍 Pesquisar produtos..."></x-input>
+    <div class="my-4 flex items-center justify-between gap-3">
+        <x-input type="search" class="w-full px-3 py-1" placeholder="🔍 Pesquisar produtos..."></x-input>
 
         <x-dropdown>
             <x-slot:button class="whitespace-nowrap">Ordenar por</x-slot:button>

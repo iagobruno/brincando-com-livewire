@@ -44,6 +44,7 @@ class Form extends Component
         $product = Product::create($data);
 
         $this->emit('productAdded', $product->id);
+        $this->emit('notify', 'Produto criado com sucesso!', 'success');
         $this->reset(['name', 'price', 'thumbnail']);
     }
 

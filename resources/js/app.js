@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 import focusPlugin from "@alpinejs/focus";
 import swipePlugin from "alpinejs-swipe";
+import detectBackButton from 'detect-browser-back-navigation';
 
 Alpine.plugin(focusPlugin);
 Alpine.plugin(swipePlugin);
@@ -80,9 +81,15 @@ Alpine.data("dialog", () => ({
 
     openDialog() {
         this.show = true;
+
+        this.unsubPopState = detectBackButton(() => {
+            this.closeDialog();
+        });
     },
     closeDialog() {
         this.show = false;
+
+        this.unsubPopState();
     },
     closeFromSwipeGesture() {
         if (this.$refs.dialogEl.scrollTop === 0) {
@@ -169,6 +176,12 @@ Alpine.data("dropdown", () => ({
 Alpine.store("notifications", {
     notifications: [],
 
+    init() {
+        Livewire.on("notify", (text, type = "info") => {
+            this.showNotification({ text, type });
+        });
+    },
+
     showNotification(data) {
         this.notifications.push({
             ...data,
@@ -202,17 +215,3 @@ Alpine.data("notificationState", () => ({
 
 Alpine.start();
 window.Alpine = Alpine;
-
-Livewire.on("productsRemoved", (ids) => {
-    const plural = ids.length > 1 ? "s" : "";
-    Alpine.store("notifications").showNotification({
-        text: `Produto${plural} deletado${plural}!`,
-        type: "success",
-    });
-});
-Livewire.on("productAdded", () =>
-    Alpine.store("notifications").showNotification({
-        text: "Produto adicionado!",
-        type: "success",
-    })
-);

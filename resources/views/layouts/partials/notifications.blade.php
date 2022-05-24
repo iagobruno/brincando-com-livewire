@@ -1,13 +1,19 @@
 <div x-data
-    class="pointer-events-none fixed bottom-0 right-0 z-50 flex max-w-[min(400px,calc(100vw-40px))] flex-col items-end gap-2.5 pr-3 pb-3"
+    class="pointer-events-none fixed bottom-0 right-0 z-50 flex max-w-[min(400px,100vw)] flex-col items-end gap-2.5 px-3 pb-3"
     role="status"
     aria-live="polite">
     <template x-for="notification in $store.notifications.notifications" :key="notification.id">
+
         <div x-data="notificationState"
-            class="max-w-inherit pointer-events-all relative flex flex-row items-center gap-1.5 rounded border border-gray-200 bg-white py-2 px-3 pr-2 shadow-md"
+            class="max-w-inherit pointer-events-auto relative flex flex-row items-center gap-1.5 rounded border border-gray-200 bg-white py-2.5 px-3 pr-2 shadow-md"
             x-show="show"
-            x-transition.duration.500ms>
-            <svg class="h-[20px] w-[20px] min-w-[20px]" role="img"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-y-full"
+            x-transition:enter-end="opacity-1 translate-y-0"
+            x-transition:leave="transition ease-in duration-400"
+            x-transition:leave-start="opacity-1"
+            x-transition:leave-end="opacity-0">
+            <svg class="mr-0.5 h-[20px] w-[20px] min-w-[20px]" role="img"
                 x-bind:class="{
                     'success': 'fill-emerald-600',
                     'error': 'fill-rose-600',
@@ -23,15 +29,16 @@
                         'info': '#info-fill',
                     } [notification.type]" />
             </svg>
-            <div x-text="notification.text" x-transition.duration.500ms></div>
-            <button class="cursor-pointer p-1.5" type="button"
+            <div x-text="notification.text" class="leading-6" x-transition.duration.500ms></div>
+            <button class="min-w-[24px] cursor-pointer py-1.5 px-1" type="button"
                 aria-label="Close notification"
                 x-on:click="fadeOut(notification.id)">
-                <svg class="h-5 w-5 stroke-gray-900" aria-hidden="true">
+                <svg class="h-3.5 w-3.5 stroke-gray-900" aria-hidden="true">
                     <use href="#close" />
                 </svg>
             </button>
         </div>
+
     </template>
 </div>
 

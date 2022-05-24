@@ -2339,6 +2339,11 @@ destroy@1.2.0:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.2.0.tgz#4803735509ad8be552934c67df614f94e66fa015"
   integrity sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==
 
+detect-browser-back-navigation@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/detect-browser-back-navigation/-/detect-browser-back-navigation-1.0.2.tgz#6b754fab873a149b108f4ed3b513efd3cfef7016"
+  integrity sha512-fL7UCUGE5Is1yAcIRlmdIegs3PZPCS08hy7LCrx6oNhhmlFGs9lR8HEDLE9MryinScyeq/u2l+tSZQ0T4qmfqw==
+
 detect-node@^2.0.4:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.1.0.tgz#c9c70775a49c3d03bc2c06d9a73be550f978f8b1"
