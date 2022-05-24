@@ -1,5 +1,5 @@
 <div class="overflow-hidden overflow-x-auto rounded border border-gray-300">
-    <table class="min-w-[500px] text-sm" x-data="tableState($el)">
+    <table class="min-w-[500px]" x-data="tableState($el)">
         <thead>
             <tr class="border-b border-gray-300 bg-gray-100">
                 <th class="p-2 pl-3 text-left">

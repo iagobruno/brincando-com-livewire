@@ -1,10 +1,4 @@
-@extends('layouts.default')
-
-@section('title')
-    Produtos
-@endsection
-
-@section('content')
+<div>
     <div class="mb-4 flex flex-wrap items-center justify-between">
         <h1 class="text-4xl font-bold">Produtos</h1>
         <x-dialog>
@@ -20,7 +14,11 @@
     </div>
 
     <div class="my-4 flex items-center justify-between gap-3">
-        <x-input type="search" class="w-full px-3 py-1" placeholder="🔍 Pesquisar produtos..."></x-input>
+        <x-input
+            type="search"
+            class="w-full px-3 py-1"
+            placeholder="🔍 Pesquisar produtos..."
+            wire:model.debounce.500ms="query" />
 
         <x-dropdown>
             <x-slot:button class="whitespace-nowrap">Ordenar por</x-slot:button>
@@ -32,4 +30,4 @@
     </div>
 
     <livewire:table />
-@endsection
+</div>

@@ -8,10 +8,12 @@ use Livewire\Component;
 class Table extends Component
 {
     public $products = [];
+    public $searchQuery = '';
 
     protected $listeners = [
         'removeProducts',
         'productAdded',
+        'searchQueryUpdated',
     ];
 
     public function removeProducts($ids)
@@ -29,6 +31,12 @@ class Table extends Component
         $this->fetchProducts();
     }
 
+    public function searchQueryUpdated($value)
+    {
+        $this->searchQuery = $value;
+        $this->fetchProducts();
+    }
+
     public function mount()
     {
         $this->fetchProducts();
@@ -36,7 +44,11 @@ class Table extends Component
 
     public function fetchProducts()
     {
-        $this->products = Product::latest()->get();
+        $this->products = Product::latest()
+            ->when($this->searchQuery !== '', function ($query) {
+                $query->where('name', 'LIKE', '%' . $this->searchQuery . '%');
+            })
+            ->get();
     }
 
     public function render()
