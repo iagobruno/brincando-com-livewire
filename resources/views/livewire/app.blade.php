@@ -21,13 +21,15 @@
             wire:model.debounce.500ms="query" />
 
         <x-dropdown>
-            <x-slot:button class="whitespace-nowrap">Ordenar por</x-slot:button>
+            <x-slot:button class="whitespace-nowrap text-sm">
+                {{ $sort === 'latest' ? 'Mais recentes primeiro' : 'Mais antigos primeiro' }}
+            </x-slot:button>
             <x-slot:menu>
-                <x-dropdown-item class="">Mais antigos primeiro</x-dropdown-item>
-                <x-dropdown-item class="">Mais recentes primeiro</x-dropdown-item>
+                <x-dropdown-item wire:click="$set('sort', 'latest')">Mais recentes primeiro</x-dropdown-item>
+                <x-dropdown-item wire:click="$set('sort', 'oldest')">Mais antigos primeiro</x-dropdown-item>
             </x-slot:menu>
         </x-dropdown>
     </div>
 
-    <livewire:table />
+    <x-table :products="$products" />
 </div>
