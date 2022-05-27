@@ -31,7 +31,7 @@ class App extends Component
         Product::whereIn('id', $ids)->delete();
         $this->fetchProducts();
 
-        $this->emit('notify', trans_choice('Produto removido|Produtos removidos', count($ids)) . ' do catálogo!', 'success');
+        $this->emit('notify', trans_choice('messages.product_deleted', count($ids)), 'success');
         $this->emit('productsRemoved', $ids);
     }
 

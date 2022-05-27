@@ -5,14 +5,14 @@
                 <th class="p-2 pl-3 text-left">
                     <input type="checkbox" class="rounded align-baseline" x-bind="checkAll">
                 </th>
-                <th class="p-2 text-left">Imagem</th>
-                <th class="w-full p-2 text-left">Nome</th>
-                <th class="p-2 text-left">Preço</th>
+                <th class="p-2 text-left">{{ __('messages.product.image') }}</th>
+                <th class="w-full p-2 text-left">{{ __('messages.product.name') }}</th>
+                <th class="p-2 text-left">{{ __('messages.product.price') }}</th>
                 <th class="p-2 pr-3 text-left">
                     <x-button
                         class="button button-outlined button-red whitespace-nowrap !px-2 !py-1"
-                        x-on:click="removeAllSelectedRows" x-bind:disabled="!hasAtLeastOneRowSelected" disabled>Delete
-                        selected</x-button>
+                        x-on:click="removeAllSelectedRows" x-bind:disabled="!hasAtLeastOneRowSelected" disabled>
+                        {{ __('messages.delete_selected') }}</x-button>
                 </th>
             </tr>
         </thead>
@@ -25,6 +25,6 @@
     </table>
 
     @if (count($products) === 0)
-        <div class="my-6 px-2 text-center text-lg text-gray-600">Nenhum item encontrado.</div>
+        <div class="my-6 px-2 text-center text-lg text-gray-600">{{ __('messages.not_found') }}</div>
     @endif
 </div>

@@ -20,16 +20,19 @@ class Form extends Component
         'price' => ['required', 'numeric', 'integer', 'min:0'],
         'thumbnail' => ['sometimes', 'image', 'max:1024'],
     ];
-    protected $messages = [
-        'required' => 'Este campo é obrigatório.',
-        'name.max' => 'Digite no máximo 255 caracteres.',
-        'name.unique' => 'Este produto já foi criado.',
-        'price.numeric' => 'Digite apenas números.',
-        'price.integer' => 'Digite um número inteiro sem casas decimais.',
-        'price.min' => 'Digite um preço maior que 0.',
-        'thumbnail.image' => 'O arquivo precisa ser uma imagem.',
-        'thumbnail.max' => 'Arquivo muito grande.',
-    ];
+    public function messages()
+    {
+        return [
+            'required' => __('messages.validations.required'),
+            'name.max' => __('messages.validations.max_char', ['max' => 255]),
+            'name.unique' => __('messages.validations.product_already_created'),
+            'price.numeric' => __('messages.validations.only_numbers'),
+            'price.integer' => __('messages.validations.integer'),
+            'price.min' => __('messages.validations.price_min_zero'),
+            'thumbnail.image' => __('messages.validations.only_images'),
+            'thumbnail.max' => __('messages.validations.big_file'),
+        ];
+    }
 
     public function store()
     {
@@ -44,7 +47,7 @@ class Form extends Component
         $product = Product::create($data);
 
         $this->emit('productAdded', $product->id);
-        $this->emit('notify', 'Produto criado com sucesso!', 'success');
+        $this->emit('notify', __('messages.product_created'), 'success');
         $this->reset(['name', 'price', 'thumbnail']);
     }
 
