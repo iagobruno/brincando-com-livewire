@@ -28,7 +28,7 @@ return [
         'create' => 'Criar',
         'creating' => 'Criando',
         'type_here' => 'Digite aqui...',
-        'uploading' => 'Enviando imagem',
+        'uploading' => 'Enviando arquivo',
     ],
 
     'validations' => [

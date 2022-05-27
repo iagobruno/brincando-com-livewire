@@ -9,7 +9,7 @@ class App extends Component
 {
     public $products = [];
     public $query = '';
-    public $sort = 'latest';
+    public $sort = '';
 
     protected $queryString = [
         'query' => ['except' => '', 'as' => 'search'],
@@ -55,7 +55,7 @@ class App extends Component
             ->when($this->query !== '', function ($query) {
                 $query->where('name', 'LIKE', '%' . $this->query . '%');
             })
-            ->orderBy('created_at', $this->sort === 'latest' ? 'desc' : 'asc')
+            ->orderBy('created_at', $this->sort === 'oldest' ? 'asc' : 'desc')
             ->get();
     }
 

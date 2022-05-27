@@ -20,7 +20,7 @@ mix.postCss("resources/css/app.css", "public/css", [
 ]);
 
 if (mix.inProduction()) {
-    mix.minify();
+    mix.minify("public/js/app.js");
     mix.version();
 } else {
     mix.sourceMaps();

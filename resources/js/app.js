@@ -1,7 +1,8 @@
+import * as Turbo from "@hotwired/turbo";
 import Alpine from "alpinejs";
 import focusPlugin from "@alpinejs/focus";
 import swipePlugin from "alpinejs-swipe";
-import detectBackButton from 'detect-browser-back-navigation';
+import detectBackButton from "detect-browser-back-navigation";
 
 Alpine.plugin(focusPlugin);
 Alpine.plugin(swipePlugin);
@@ -70,26 +71,25 @@ Alpine.data("tableState", (tableElement) => ({
 /**
  * Estado reutilizável para dialogs totalmente acessíveis.
  */
-Alpine.data("dialog", () => ({
+Alpine.data("dialog", (rootElem) => ({
     show: false,
 
     init() {
-        Livewire.on("productAdded", () => {
-            this.closeDialog();
-        });
+        this.$nextTick(() => (this.show = true));
     },
 
     openDialog() {
         this.show = true;
 
-        this.unsubPopState = detectBackButton(() => {
-            this.closeDialog();
-        });
+        // this.unsubPopState = detectBackButton(() => {
+        //     this.closeDialog();
+        // });
     },
     closeDialog() {
         this.show = false;
+        Livewire.emit("closeModal", rootElem.id);
 
-        this.unsubPopState();
+        // this.unsubPopState();
     },
     closeFromSwipeGesture() {
         if (this.$refs.dialogEl.scrollTop === 0) {

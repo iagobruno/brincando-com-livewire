@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
+use \App\Http\Livewire\ModalComponent;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
-class Form extends Component
+class CreateProductForm extends ModalComponent
 {
+    const modalMaxWidth = '440px';
+
     use WithFileUploads;
 
     public $name = '';
@@ -18,7 +20,7 @@ class Form extends Component
     protected $rules = [
         'name' => ['required', 'string', 'max:255', 'unique:products,name'],
         'price' => ['required', 'numeric', 'integer', 'min:0'],
-        'thumbnail' => ['sometimes', 'image', 'max:1024'],
+        'thumbnail' => ['sometimes', 'nullable', 'image', 'max:1024'],
     ];
     public function messages()
     {
@@ -38,14 +40,17 @@ class Form extends Component
     {
         $data = $this->validate();
 
-        // Run php artisan storage:link
-        $filepath = Storage::url(
-            $this->thumbnail->store('public/images')
-        );
-        $data['thumbnail'] = url($filepath);
+        if ($this->thumbnail) {
+            // Run -> php artisan storage:link
+            $filepath = Storage::url(
+                $this->thumbnail->store('public/images')
+            );
+            $data['thumbnail'] = url($filepath);
+        }
 
         $product = Product::create($data);
 
+        $this->closeModal();
         $this->emit('productAdded', $product->id);
         $this->emit('notify', __('messages.product_created'), 'success');
         $this->reset(['name', 'price', 'thumbnail']);
@@ -58,6 +63,6 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.form');
+        return view('livewire.create-product-form');
     }
 }

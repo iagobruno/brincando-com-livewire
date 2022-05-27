@@ -1,4 +1,7 @@
 <div>
+    <h3 class="text-2xl font-bold">{{ __('messages.create_new_product') }}</h3>
+    <p class="mb-3 text-gray-500">{{ __('messages.fill_form') }}</p>
+
     <form
         class="space-y-4"
         wire:submit.prevent="store">
@@ -64,7 +67,7 @@
             <div x-show="isUploading">
                 <div class="mb-0.5 text-sm text-gray-500">{{ __('messages.modal.uploading') }}...</div>
                 <div class="h-2 w-full overflow-hidden rounded bg-gray-100">
-                    <div x-bind:style="{ width: progress }" class="h-2 bg-blue-500 transition"></div>
+                    <div x-bind:style="{ width: progress + '%' }" class="h-2 bg-blue-500 transition"></div>
                 </div>
             </div>
             @if ($thumbnail && !$errors->has('thumbnail'))
