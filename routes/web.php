@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', \App\Http\Livewire\App::class);
+Route::view('/', 'welcome');
+
+Route::get('/products', \App\Http\Livewire\App::class)->name('products');

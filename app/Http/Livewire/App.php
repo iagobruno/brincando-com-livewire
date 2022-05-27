@@ -13,6 +13,7 @@ class App extends Component
 
     protected $queryString = [
         'query' => ['except' => '', 'as' => 'search'],
+        'sort' => ['except' => ''],
     ];
 
     protected $listeners = [
@@ -30,8 +31,7 @@ class App extends Component
         Product::whereIn('id', $ids)->delete();
         $this->fetchProducts();
 
-        $plural = count($ids) > 1 ? 's' : '';
-        $this->emit('notify', "Produto$plural removido$plural do catálogo!", 'success');
+        $this->emit('notify', trans_choice('Produto removido|Produtos removidos', count($ids)) . ' do catálogo!', 'success');
         $this->emit('productsRemoved', $ids);
     }
 
@@ -62,8 +62,7 @@ class App extends Component
     public function render()
     {
         return view('livewire.app')
-            ->layout('layouts.default', [
-                'title' => 'Produtos'
-            ]);
+            ->extends('layouts.default')
+            ->section('content');
     }
 }

@@ -1,6 +1,16 @@
+@section('title')
+    Produtos
+@endsection
+
 <div>
     <div class="mb-4 flex flex-wrap items-center justify-between">
-        <h1 class="text-4xl font-bold">Produtos</h1>
+        <div>
+            <h1 class="text-4xl font-bold">Produtos</h1>
+            <p class="text-sm text-gray-500">
+                {{ $products->count() . ' ' . trans_choice('Produto|Produtos', $products->count()) }}
+                {{ $query ? trans_choice('encontrado|encontrados', $products->count()) : '' }}
+            </p>
+        </div>
         <x-dialog>
             <x-slot:trigger>
                 <x-button class="button-blue">Criar produto</x-button>

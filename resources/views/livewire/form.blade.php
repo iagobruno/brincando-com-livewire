@@ -12,7 +12,7 @@
                 class=""
                 wire:model.debounce.500ms="name"
                 :invalid="$errors->has('name')"
-                x-effect="show && $el.focus()"
+                autofocus
                 autocomplete="off"
                 placeholder="Digite aqui..." />
             <div class="text-sm text-red-600">
