@@ -2,47 +2,50 @@
 
 namespace App\Http\Livewire;
 
-use \App\Http\Livewire\ModalComponent;
+use App\Http\Livewire\ModalComponent;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
-class CreateProductForm extends ModalComponent
+class EditProductForm extends ModalComponent
 {
-    const modalMaxWidth = '440px';
+    const modalMaxWidth = '400px';
 
     use WithFileUploads;
 
     public string $name = '';
     public int $price = 0;
     public $thumbnail = null;
+    public $productId = '';
 
     protected function rules()
     {
-        return (new \App\Http\Requests\StoreProductRequest())->rules();
+        return (new \App\Http\Requests\StoreProductRequest())->rules(ignoreProductId: $this->productId);
     }
     protected function messages()
     {
         return (new \App\Http\Requests\StoreProductRequest())->messages();
     }
 
-    public function store()
+    public function update()
     {
         $data = $this->validate();
 
-        if ($this->thumbnail) {
+        if ($data['thumbnail'] !== null) {
             // Run -> php artisan storage:link
             $filepath = Storage::url(
                 $this->thumbnail->store('public/images')
             );
             $data['thumbnail'] = url($filepath);
+        } else {
+            unset($data['thumbnail']);
         }
 
-        $product = Product::create($data);
+        Product::findOrFail($this->productId)->update($data);
 
         $this->closeModal();
-        $this->emit('productAdded', $product->id);
-        $this->emit('notify', __('messages.product_created'), 'success');
+        $this->emit('productUpdated', $this->productId);
+        $this->emit('notify', __('messages.product_updated'), 'success');
         $this->reset(['name', 'price', 'thumbnail']);
     }
 
@@ -51,8 +54,16 @@ class CreateProductForm extends ModalComponent
         $this->validateOnly($field);
     }
 
+    public function mount(Product $product)
+    {
+        $this->name = $product->name;
+        $this->price = $product->price;
+        // $this->thumbnail = $product->thumbnail;
+        $this->productId = $product->id;
+    }
+
     public function render()
     {
-        return view('livewire.create-product-form');
+        return view('livewire.edit-product-form');
     }
 }

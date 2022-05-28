@@ -18,33 +18,11 @@ class App extends Component
 
     protected $listeners = [
         'removeProducts',
-        'productAdded',
+        'productAdded' => 'fetchProducts',
+        'productUpdated' => 'fetchProducts',
     ];
 
     public function mount()
-    {
-        $this->fetchProducts();
-    }
-
-    public function removeProducts($ids)
-    {
-        Product::whereIn('id', $ids)->delete();
-        $this->fetchProducts();
-
-        $this->emit('notify', trans_choice('messages.product_deleted', count($ids)), 'success');
-        $this->emit('productsRemoved', $ids);
-    }
-
-    public function productAdded()
-    {
-        $this->fetchProducts();
-    }
-
-    public function updatedQuery()
-    {
-        $this->fetchProducts();
-    }
-    public function updatedSort()
     {
         $this->fetchProducts();
     }
@@ -57,6 +35,24 @@ class App extends Component
             })
             ->orderBy('created_at', $this->sort === 'oldest' ? 'asc' : 'desc')
             ->get();
+    }
+
+    public function removeProducts($ids)
+    {
+        Product::whereIn('id', $ids)->delete();
+        $this->fetchProducts();
+
+        $this->emit('notify', trans_choice('messages.product_deleted', count($ids)), 'success');
+        $this->emit('productsRemoved', $ids);
+    }
+
+    public function updatedQuery()
+    {
+        $this->fetchProducts();
+    }
+    public function updatedSort()
+    {
+        $this->fetchProducts();
     }
 
     public function render()

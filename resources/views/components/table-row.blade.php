@@ -5,12 +5,20 @@
     <td class="p-2 pl-3">
         <input type="checkbox" class="rounded" x-bind="checkRow">
     </td>
+    <td class="p-2 text-xs text-gray-600">#{{ $product->id }}</td>
     <td class="p-2">
-        <img src="{{ $product->thumbnail }}" class="block h-8 w-8 rounded object-cover">
+        <img src="{{ $product->thumbnail ?? '/default-thumb.png' }}"
+            class="block h-[32px] min-h-[32px] w-[32px] min-w-[32px] rounded object-cover">
     </td>
     <td class="w-full p-2">{{ $product->name }}</td>
     <td class="whitespace-nowrap p-2">R$ {{ number_format($product->price, 2, ',', '.') }}</td>
-    <td class="w-full p-2 pr-3 text-right">
+    <td class="w-full p-2 pr-3 text-right space-x-1">
+        <button class="rounded !outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+            wire:click="$emit('openModal', 'edit-product-form', { product: {{ $product->id }} })">
+            <svg class="h-5 w-5 stroke-gray-800">
+                <use href="#pencil" />
+            </svg>
+        </button>
         <button class="rounded !outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
             x-on:click="removeOneRow($refs.product{{ $product->id }})">
             <svg class="h-5 w-5 stroke-red-500 hover:stroke-red-600">

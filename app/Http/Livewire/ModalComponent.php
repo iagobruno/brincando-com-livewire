@@ -4,6 +4,11 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
+/**
+ * How to open a modal:
+ * <button wire:click="$emit('openModal', 'create-product-form')">Create</button>
+ * <button wire:click="$emit('openModal', 'edit-product-form', { product: {{ $product->id }} })">Edit</button>
+ */
 abstract class ModalComponent extends Component
 {
     const modalMaxWidth = '600px';

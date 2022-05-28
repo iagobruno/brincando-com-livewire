@@ -4,9 +4,13 @@ return [
     'products' => 'Produtos',
     'create_product' => 'Criar produto',
     'create_new_product' => 'Criar novo produto',
+    'edit_product' => 'Editar produto',
+    'edit_product_id' => 'Editar produto #:id',
     'product_created' => 'Produto criado com sucesso!',
+    'product_updated' => 'Produto atualizado com sucesso!',
     'product_deleted' => 'Produto removido do catálogo!|Produtos removidos do catálogo!',
     'fill_form' => 'Preencha o formulário abaixo',
+    'edit_form' => 'Edite as informações abaixo',
 
     'search_products' => '🔍 Pesquisar produtos...',
     'latest_first' => 'Mais recentes primeiro',
@@ -14,10 +18,9 @@ return [
     'delete_selected' => 'Deletar selecionados',
     'not_found' => 'Nenhum produto encontrado',
 
-    'product' => [
-        'name' => 'Nome',
+    'table' => [
+        'product' => 'Produto',
         'price' => 'Preço',
-        'image' => 'Imagem',
     ],
 
     'modal' => [
