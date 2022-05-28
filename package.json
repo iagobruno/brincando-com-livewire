@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "@alpinejs/focus": "^3.10.2",
+        "@github/hotkey": "^2.0.0",
         "@hotwired/turbo": "^7.1.0",
         "alpinejs": "^3.10.2",
         "alpinejs-swipe": "^1.0.0",

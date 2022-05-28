@@ -3,6 +3,7 @@ import Alpine from "alpinejs";
 import focusPlugin from "@alpinejs/focus";
 import swipePlugin from "alpinejs-swipe";
 import detectBackButton from "detect-browser-back-navigation";
+import { install as bindHotKey } from "@github/hotkey";
 import LaravelEcho from "laravel-echo";
 window.Pusher = require("pusher-js");
 
@@ -231,3 +232,10 @@ Alpine.data("notificationState", () => ({
 
 Alpine.start();
 window.Alpine = Alpine;
+
+document.addEventListener("turbo:load", () => {
+    // Install all the hotkeys on the page
+    for (const elem of document.querySelectorAll("[data-hotkey]")) {
+        bindHotKey(elem);
+    }
+});

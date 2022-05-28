@@ -11,7 +11,7 @@
                 {{ $query ? trans_choice('encontrado|encontrados', $products->count()) : '' }}
             </p>
         </div>
-        <x-button wire:click="$emit('openModal', 'create-product-form')" class="button-blue">
+        <x-button wire:click="$emit('openModal', 'create-product-form')" class="button-blue" data-hotkey="n">
             {{ __('messages.create_product') }}
         </x-button>
     </div>
@@ -21,7 +21,8 @@
             type="search"
             class="w-full px-3 py-1"
             placeholder="{{ __('messages.search_products') }}"
-            wire:model.debounce.500ms="query" />
+            wire:model.debounce.500ms="query"
+            data-hotkey="/" />
 
         <x-dropdown>
             <x-slot:button class="whitespace-nowrap text-sm">

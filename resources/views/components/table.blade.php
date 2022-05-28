@@ -12,7 +12,9 @@
                 <th class="p-2 pr-3">
                     <x-button
                         class="button button-outlined button-red whitespace-nowrap !px-2 !py-1"
-                        x-on:click="removeAllSelectedRows" x-bind:disabled="!hasAtLeastOneRowSelected" disabled>
+                        x-on:click="removeAllSelectedRows" x-bind:disabled="!hasAtLeastOneRowSelected"
+                        disabled
+                        data-hotkey="Delete">
                         {{ __('messages.delete_selected') }}</x-button>
                 </th>
             </tr>
