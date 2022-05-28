@@ -1,13 +1,13 @@
 <div class="modals">
-    @foreach ($components as $compName => $props)
+    @foreach ($components as $modal)
         <x-dialog
-            wire:key="{{ $compName }}"
-            id="{{ $compName }}"
+            wire:key="{{ $modal['component'] }}"
+            id="{{ $modal['component'] }}"
         >
             <x-slot:body
-                :style="$props['maxWidth'] ? 'width: ' . $props['maxWidth'] : ''"
+                :style="$modal['maxWidth'] ? 'width: ' . $modal['maxWidth'] : ''"
             >
-                @livewire($compName, $props['attributes'], key($compName))
+                @livewire($modal['component'], $modal['attributes'], key($modal['component']))
             </x-slot:body>
         </x-dialog>
     @endforeach

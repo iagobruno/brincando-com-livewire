@@ -13,7 +13,7 @@
         x-bind="dialogEl"
         {{ $body->attributes->merge([
             'class' =>
-                'relative z-20 max-h-[calc(100vh-40px)] w-full max-w-[100vw] tablet:w-[600px] rounded-t-md tablet:rounded-b-md bg-white py-6 px-6 shadow-lg overflow-auto overscroll-contain',
+                'relative z-20 max-h-[calc(100vh-20px)] w-full max-w-[100vw] tablet:w-[600px] rounded-t-md tablet:rounded-b-md bg-white py-6 px-6 shadow-lg overflow-auto overscroll-contain',
         ]) }}
         role="dialog"
         aria-modal="true"

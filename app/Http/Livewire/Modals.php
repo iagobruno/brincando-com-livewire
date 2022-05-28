@@ -7,8 +7,7 @@ use Exception;
 
 class Modals extends Component
 {
-    public array $components = []; // associative array
-    public array $stack = []; // array
+    public array $components = [];
 
     protected $listeners = [
         'openModal',
@@ -25,26 +24,28 @@ class Modals extends Component
             throw new Exception("[{$componentClass}] does not implement [{$requiredInterface}] interface.");
         }
 
-        $this->components[$componentName] = [
+        $this->components[] = [
+            'component' => $componentName,
             'maxWidth' => $componentClass::modalMaxWidth,
             'attributes' => $attributes,
         ];
-        $this->stack[] = $componentName;
     }
 
     public function closeModal($componentName)
     {
-        unset($this->components[$componentName]);
-        $this->stack = array_filter($this->stack, fn ($item) => $item !== $componentName);
+        $this->components = array_filter(
+            $this->components,
+            fn ($item) => $item['component'] !== $componentName
+        );
     }
 
     public function closePreviousModal()
     {
-        $index = count($this->stack) - 2;
+        $index = count($this->components) - 2;
         if ($index < 0) return;
-        $modalName = $this->stack[$index];
-        if ($modalName) {
-            $this->closeModal($modalName);
+        $modalKey = $this->components[$index]['component'];
+        if ($modalKey) {
+            $this->closeModal($modalKey);
         }
     }
 
