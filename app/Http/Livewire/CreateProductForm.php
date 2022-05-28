@@ -13,8 +13,8 @@ class CreateProductForm extends ModalComponent
 
     use WithFileUploads;
 
-    public string $name = '';
-    public int $price = 0;
+    public $name = '';
+    public $price = 0;
     public $thumbnail = null;
 
     protected function rules()
@@ -41,7 +41,7 @@ class CreateProductForm extends ModalComponent
         $product = Product::create($data);
 
         $this->closeModal();
-        $this->emit('productAdded', $product->id);
+        \App\Events\ProductCreated::dispatch($product);
         $this->emit('notify', __('messages.product_created'), 'success');
         $this->reset(['name', 'price', 'thumbnail']);
     }

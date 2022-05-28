@@ -3,6 +3,15 @@ import Alpine from "alpinejs";
 import focusPlugin from "@alpinejs/focus";
 import swipePlugin from "alpinejs-swipe";
 import detectBackButton from "detect-browser-back-navigation";
+import LaravelEcho from "laravel-echo";
+window.Pusher = require("pusher-js");
+
+window.Echo = new LaravelEcho({
+    broadcaster: "pusher",
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    forceTLS: true,
+});
 
 Alpine.plugin(focusPlugin);
 Alpine.plugin(swipePlugin);
@@ -52,6 +61,9 @@ Alpine.data("tableState", (tableElement) => ({
     },
 
     removeOneRow(el) {
+        const productName = el.querySelector("td[data-cel=name]").textContent;
+        if (!confirm(`Confirmar exclusão do produto ${productName}`)) return;
+
         el.classList.add("opacity-60", "pointer-events-none", "line-through");
         Livewire.emit("removeProducts", [el.id]);
     },
@@ -61,6 +73,10 @@ Alpine.data("tableState", (tableElement) => ({
             (row) => row.querySelector("input[type=checkbox]").checked
         );
         const selectedids = selectedRows.map((el) => el.id);
+
+        if (!confirm(`Confirmar exclusão de ${selectedids.length} produtos`))
+            return;
+
         Livewire.emit("removeProducts", selectedids);
 
         this.areAllRowsSelected = false;

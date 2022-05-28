@@ -13,8 +13,8 @@ class EditProductForm extends ModalComponent
 
     use WithFileUploads;
 
-    public string $name = '';
-    public int $price = 0;
+    public $name = '';
+    public $price = 0;
     public $thumbnail = null;
     public $productId = '';
 
@@ -41,10 +41,11 @@ class EditProductForm extends ModalComponent
             unset($data['thumbnail']);
         }
 
-        Product::findOrFail($this->productId)->update($data);
+        $product = Product::findOrFail($this->productId);
+        $product->update($data);
 
         $this->closeModal();
-        $this->emit('productUpdated', $this->productId);
+        \App\Events\ProductUpdated::dispatch($product);
         $this->emit('notify', __('messages.product_updated'), 'success');
         $this->reset(['name', 'price', 'thumbnail']);
     }

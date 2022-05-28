@@ -21,6 +21,8 @@
         "@hotwired/turbo": "^7.1.0",
         "alpinejs": "^3.10.2",
         "alpinejs-swipe": "^1.0.0",
-        "detect-browser-back-navigation": "^1.0.2"
+        "detect-browser-back-navigation": "^1.0.2",
+        "laravel-echo": "^1.11.7",
+        "pusher-js": "^7.1.0-beta"
     }
 }

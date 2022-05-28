@@ -18,8 +18,9 @@ class App extends Component
 
     protected $listeners = [
         'removeProducts',
-        'productAdded' => 'fetchProducts',
-        'productUpdated' => 'fetchProducts',
+        'echo:products,ProductCreated' => 'fetchProducts',
+        'echo:products,ProductUpdated' => 'fetchProducts',
+        'echo:products,BulkDeletion' => 'fetchProducts',
     ];
 
     public function mount()
@@ -40,10 +41,9 @@ class App extends Component
     public function removeProducts($ids)
     {
         Product::whereIn('id', $ids)->delete();
-        $this->fetchProducts();
 
+        \App\Events\BulkDeletion::dispatch($ids);
         $this->emit('notify', trans_choice('messages.product_deleted', count($ids)), 'success');
-        $this->emit('productsRemoved', $ids);
     }
 
     public function updatedQuery()
