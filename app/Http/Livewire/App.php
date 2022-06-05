@@ -4,10 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class App extends Component
 {
-    public $products = [];
+    use WithPagination;
+
     public $query = '';
     public $sort = '';
 
@@ -23,21 +25,6 @@ class App extends Component
         'echo:products,BulkDeletion' => 'fetchProducts',
     ];
 
-    public function mount()
-    {
-        $this->fetchProducts();
-    }
-
-    public function fetchProducts()
-    {
-        $this->products = Product::query()
-            ->when($this->query !== '', function ($query) {
-                $query->where('name', 'LIKE', '%' . $this->query . '%');
-            })
-            ->orderBy('created_at', $this->sort === 'oldest' ? 'asc' : 'desc')
-            ->get();
-    }
-
     public function removeProducts($ids)
     {
         Product::whereIn('id', $ids)->delete();
@@ -46,18 +33,25 @@ class App extends Component
         $this->emit('notify', trans_choice('messages.product_deleted', count($ids)), 'success');
     }
 
-    public function updatedQuery()
+    public function updated($field)
     {
-        $this->fetchProducts();
-    }
-    public function updatedSort()
-    {
-        $this->fetchProducts();
+        if ($field === 'query' || $field === 'sort') {
+            $this->resetPage();
+        }
     }
 
     public function render()
     {
-        return view('livewire.app')
+        $products = Product::query()
+            ->when($this->query !== '', function ($query) {
+                $query->where('name', 'LIKE', '%' . $this->query . '%');
+            })
+            ->orderBy('created_at', $this->sort === 'oldest' ? 'asc' : 'desc')
+            ->paginate(page: $this->page, perPage: 20);
+
+        return view('livewire.app', [
+            'products' => $products,
+        ])
             ->extends('layouts.default')
             ->section('content');
     }

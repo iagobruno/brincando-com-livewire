@@ -7,8 +7,8 @@
         <div>
             <h1 class="text-4xl font-bold">{{ __('messages.products') }}</h1>
             <p class="text-sm text-gray-500">
-                {{ $products->count() . ' ' . trans_choice('Produto|Produtos', $products->count()) }}
-                {{ $query ? trans_choice('encontrado|encontrados', $products->count()) : '' }}
+                {{ $products->total() . ' ' . trans_choice('Produto|Produtos', $products->total()) }}
+                {{ $query ? trans_choice('encontrado|encontrados', $products->total()) : '' }}
             </p>
         </div>
         <x-button wire:click="$emit('openModal', 'create-product-form')" class="button-blue" data-hotkey="n">
