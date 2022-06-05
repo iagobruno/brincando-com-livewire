@@ -6,11 +6,12 @@ module.exports = {
         "./resources/views/**/*.blade.php",
     ],
     theme: {
-        extend: {},
-        screens: {
-            tablet: "500px",
-            laptop: "760px",
-            desktop: "1024px",
+        extend: {
+            screens: {
+                tablet: "500px",
+                laptop: "760px",
+                desktop: "1024px",
+            },
         },
     },
     plugins: [require("@tailwindcss/forms")],

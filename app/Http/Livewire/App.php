@@ -20,9 +20,9 @@ class App extends Component
 
     protected $listeners = [
         'removeProducts',
-        'echo:products,ProductCreated' => 'fetchProducts',
-        'echo:products,ProductUpdated' => 'fetchProducts',
-        'echo:products,BulkDeletion' => 'fetchProducts',
+        'echo:products,ProductCreated' => '$refresh',
+        'echo:products,ProductUpdated' => '$refresh',
+        'echo:products,BulkDeletion' => '$refresh',
     ];
 
     public function removeProducts($ids)
