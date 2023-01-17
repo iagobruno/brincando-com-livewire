@@ -43,14 +43,29 @@ class Modals extends Component
     {
         $index = count($this->components) - 2;
         if ($index < 0) return;
-        $modalKey = $this->components[$index]['component'];
-        if ($modalKey) {
-            $this->closeModal($modalKey);
+        $component = $this->components[$index]['component'];
+        if ($component) {
+            $this->closeModal($component);
         }
     }
 
     public function render()
     {
-        return view('livewire.modals');
+        return <<<'blade'
+            <div class="modals">
+                @foreach ($components as $modal)
+                    <x-dialog
+                        wire:key="{{ $modal['component'] }}"
+                        id="{{ $modal['component'] }}"
+                    >
+                        <x-slot:body
+                            :style="$modal['maxWidth'] ? 'width: ' . $modal['maxWidth'] : ''"
+                        >
+                            @livewire($modal['component'], $modal['attributes'], key($modal['component']))
+                        </x-slot:body>
+                    </x-dialog>
+                @endforeach
+            </div>
+        blade;
     }
 }
