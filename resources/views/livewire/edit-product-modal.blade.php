@@ -7,5 +7,6 @@
         wire:submit.prevent="update"
         :name="$name"
         :price="$price"
-        :thumbnail="$thumbnail" />
+        :thumbnail="$thumbnail"
+        mode="edit" />
 </div>

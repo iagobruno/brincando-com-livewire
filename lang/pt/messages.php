@@ -30,6 +30,8 @@ return [
         'image_preview' => 'Prévia da imagem',
         'create' => 'Criar',
         'creating' => 'Criando',
+        'update' => 'Atualizar',
+        'updating' => 'Atualizando',
         'type_here' => 'Digite aqui...',
         'uploading' => 'Enviando arquivo',
     ],

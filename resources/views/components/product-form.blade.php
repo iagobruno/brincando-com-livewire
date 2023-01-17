@@ -1,3 +1,10 @@
+@props([
+    'name',
+    'price',
+    'thumbnail',
+    'mode' => 'create', // Pode ser "create" ou "edit"
+])
+
 <form
     {{ $attributes->class(['space-y-4'])->merge()->except(['name', 'price', 'thumbnail']) }}>
 
@@ -78,11 +85,12 @@
         @disabled($errors->isNotEmpty())
         wire:loading.attr="disabled"
         wire:target="store">
-        <span wire:loading.remove wire:target="store">{{ __('messages.modal.create') }}</span>
+        <span wire:loading.remove
+            wire:target="store">{{ __($mode === 'create' ? 'messages.modal.create' : 'messages.modal.update') }}</span>
         <span wire:loading wire:target="store">
             <svg class="-ml-1 mr-2.5 inline h-5 w-5 animate-spin align-bottom text-white" aria-hidden="true">
                 <use href="#loading" />
             </svg>
-            {{ __('messages.modal.creating') }}...</span>
+            {{ __($mode === 'create' ? 'messages.modal.creating' : 'messages.modal.updating') }}...</span>
     </button>
 </form>
