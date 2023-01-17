@@ -9,8 +9,9 @@ Clone this repo and run commands in the order below:
 ```bash
 composer install
 cp .env.example .env # And edit the values
-php artisan key:generate
 php artisan storage:link
+touch database/database.sqlite
+php artisan migrate:fresh --seed
 ```
 
 Then start the server:
