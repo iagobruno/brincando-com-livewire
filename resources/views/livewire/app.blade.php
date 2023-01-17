@@ -11,7 +11,7 @@
                 {{ $query ? trans_choice('encontrado|encontrados', $products->total()) : '' }}
             </p>
         </div>
-        <x-button wire:click="$emit('openModal', 'create-product-form')" class="button-blue" data-hotkey="n">
+        <x-button wire:click="$emit('openModal', 'create-product-modal')" class="button-blue" data-hotkey="n">
             {{ __('messages.create_product') }}
         </x-button>
     </div>

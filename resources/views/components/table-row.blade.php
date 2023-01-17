@@ -14,7 +14,7 @@
     <td class="whitespace-nowrap p-2" data-cel="price">R$ {{ number_format($product->price, 2, ',', '.') }}</td>
     <td class="w-full space-x-1 p-2 pr-3 text-right" data-cel="actions">
         <button class="rounded !outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-            wire:click="$emit('openModal', 'edit-product-form', { product: {{ $product->id }} })">
+            wire:click="$emit('openModal', 'edit-product-modal', { product: {{ $product->id }} })">
             <svg class="h-5 w-5 stroke-gray-800">
                 <use href="#pencil" />
             </svg>

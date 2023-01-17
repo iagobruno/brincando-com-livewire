@@ -6,8 +6,8 @@ use Livewire\Component;
 
 /**
  * How to open a modal:
- * <button wire:click="$emit('openModal', 'create-product-form')">Create</button>
- * <button wire:click="$emit('openModal', 'edit-product-form', { product: {{ $product->id }} })">Edit</button>
+ * <button wire:click="$emit('openModal', 'create-product-modal')">Create</button>
+ * <button wire:click="$emit('openModal', 'edit-product-modal', { product: {{ $product->id }} })">Edit</button>
  */
 abstract class ModalComponent extends Component
 {
@@ -15,7 +15,7 @@ abstract class ModalComponent extends Component
 
     public function openModal(string $name)
     {
-        $this->emit('openModal', $name);
+        $this->emit('openModal', $name ?? $this->getName());
         return $this;
     }
 

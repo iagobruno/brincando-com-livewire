@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
-class CreateProductForm extends ModalComponent
+class CreateProductModal extends ModalComponent
 {
     const modalMaxWidth = '440px';
 
@@ -38,12 +38,10 @@ class CreateProductForm extends ModalComponent
             $data['thumbnail'] = url($filepath);
         }
 
-        $product = Product::create($data);
+        Product::create($data);
 
-        $this->closeModal();
-        \App\Events\ProductCreated::dispatch($product);
         $this->emit('notify', __('messages.product_created'), 'success');
-        $this->reset(['name', 'price', 'thumbnail']);
+        $this->closeModal();
     }
 
     public function updated($field)
@@ -53,6 +51,6 @@ class CreateProductForm extends ModalComponent
 
     public function render()
     {
-        return view('livewire.create-product-form');
+        return view('livewire.create-product-modal');
     }
 }

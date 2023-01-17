@@ -45,17 +45,6 @@
         x-on:livewire-upload-progress="progress = $event.detail.progress">
         <label for="image-field"
             class="mb-0.5 block text-base font-medium text-gray-900">{{ __('messages.modal.image') }}:</label>
-        <x-input
-            type="file"
-            id="image-field"
-            :value="$thumbnail"
-            class=""
-            wire:model.debounce.500ms="thumbnail"
-            :invalid="$errors->has('thumbnail')"
-            accept=".png,.jpg,.jpeg"
-            autocomplete="off"
-            placeholder="0"
-            step="1" />
         @error('thumbnail')
             <div class="text-sm text-red-600">{{ $message }}</div>
         @enderror
@@ -66,10 +55,22 @@
             </div>
         </div>
         @if ($thumbnail && !$errors->has('thumbnail'))
-            {{ __('messages.modal.image_preview') }}:
-            <img src="{{ is_string($thumbnail) ? $thumbnail : $thumbnail->temporaryUrl() }}"
+            {{-- {{ __('messages.modal.image_preview') }}: --}}
+            <img
+                src="{{ $thumbnail instanceof \Livewire\TemporaryUploadedFile ? $thumbnail->temporaryUrl() : $thumbnail }}"
                 class="block max-h-[200px] max-w-full rounded border border-gray-300 object-cover">
         @endif
+        <x-input
+            type="file"
+            wire:model.debounce.500ms="thumbnail"
+            id="image-field"
+            :value="$thumbnail"
+            class=""
+            :invalid="$errors->has('thumbnail')"
+            accept=".png,.jpg,.jpeg,.webp"
+            autocomplete="off"
+            placeholder="0"
+            step="1" />
     </div>
 
     <button type="submit"

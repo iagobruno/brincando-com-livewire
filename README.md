@@ -8,10 +8,12 @@ Clone this repo and run commands in the order below:
 
 ```bash
 composer install
+yarn install
 cp .env.example .env # And edit the values
-php artisan storage:link
 touch database/database.sqlite
+php artisan storage:link
 php artisan migrate:fresh --seed
+yarn run dev
 ```
 
 Then start the server:
